@@ -25,6 +25,7 @@ const MenuView = ({ children, actions, ...props }) => {
     isFirstTime: true,
     isMenuOpen: false,
     subMenu: null,
+    childHeight: 0,
     menuData: [],
   });
 
@@ -60,9 +61,9 @@ const MenuView = ({ children, actions, ...props }) => {
     return (
       <Pressable
         android_ripple={{
-          foreground: true,
+          foreground: false,
           borderless: false,
-          color: theme.colors.border,
+          color: theme.colors.card,
         }}
         onPress={setSubMenu}
       >
@@ -109,6 +110,11 @@ const MenuView = ({ children, actions, ...props }) => {
     );
   }, []);
 
+  const onLayout = (event) => {
+    const { x, y, width, height } = event.nativeEvent.layout;
+    setState((prev) => ({ ...prev, childHeight: height }));
+  };
+
   return (
     <View {...props}>
       <Pressable
@@ -117,6 +123,7 @@ const MenuView = ({ children, actions, ...props }) => {
           foreground: true,
           color: theme.colors.border,
         }}
+        onLayout={onLayout}
         onPress={() =>
           setState((prev) => ({ ...prev, isMenuOpen: !prev.isMenuOpen }))
         }
@@ -129,7 +136,10 @@ const MenuView = ({ children, actions, ...props }) => {
           entering={FadeIn}
           exiting={FadeOut}
           layout={LinearTransition}
-          style={[styles.menuContainer, { backgroundColor: theme.colors.card }]}
+          style={[
+            styles.menuContainer,
+            { backgroundColor: theme.colors.menuBg, top: state.childHeight },
+          ]}
         >
           <OutsidePressHandler
             onOutsidePress={() => {

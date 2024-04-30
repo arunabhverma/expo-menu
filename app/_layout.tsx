@@ -14,14 +14,18 @@ export default function AppLayout() {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      text: "#e3e3e3",
-      border: "rgba(100, 100, 100 , 0.1)",
+      background: "#121212",
+      card: "#1e1e1e",
+      menuBg: "#2d2d2d",
+      text: "#e6e6e6",
+      // border: "rgba(100, 100, 100 , 0.1)",
     },
   };
   let light = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
+      menuBg: "white",
       text: "#1f1f1f",
       border: "rgba(100, 100, 100 , 0.1)",
     },
@@ -31,7 +35,12 @@ export default function AppLayout() {
     <EventProvider>
       <SafeAreaProvider>
         <ThemeProvider value={theme}>
-          <Stack />
+          <Stack
+            screenOptions={{
+              title: "Menu",
+              navigationBarColor: theme.colors.card,
+            }}
+          />
         </ThemeProvider>
       </SafeAreaProvider>
     </EventProvider>
