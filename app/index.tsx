@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuView from "../components/menuView";
 import { useTheme } from "@react-navigation/native";
@@ -65,9 +65,14 @@ const actions = [
 
 const App = () => {
   const theme = useTheme();
+
+  const onPressAction = (item) => {
+    ToastAndroid.show(item.title, ToastAndroid.BOTTOM);
+  };
+
   return (
     <View style={styles.container}>
-      <MenuView actions={actions}>
+      <MenuView actions={actions} onPressAction={onPressAction}>
         <Entypo
           name="dots-three-horizontal"
           size={24}

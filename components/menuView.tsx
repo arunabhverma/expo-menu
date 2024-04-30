@@ -19,7 +19,7 @@ const back = {
   icon: (props) => <Feather name="arrow-left" {...props} />,
 };
 
-const MenuView = ({ children, actions, ...props }) => {
+const MenuView = ({ children, actions, onPressAction, ...props }) => {
   const theme = useTheme();
   const [state, setState] = useState({
     isFirstTime: true,
@@ -55,6 +55,7 @@ const MenuView = ({ children, actions, ...props }) => {
         if (item.id === "back") {
           setState((prev) => ({ ...prev, subMenu: null }));
         } else {
+          onPressAction(item);
         }
       }
     };
@@ -63,7 +64,7 @@ const MenuView = ({ children, actions, ...props }) => {
         android_ripple={{
           foreground: false,
           borderless: false,
-          color: theme.colors.card,
+          color: theme.colors.border,
         }}
         onPress={setSubMenu}
       >
@@ -111,7 +112,7 @@ const MenuView = ({ children, actions, ...props }) => {
   }, []);
 
   const onLayout = (event) => {
-    const { x, y, width, height } = event.nativeEvent.layout;
+    const { height } = event.nativeEvent.layout;
     setState((prev) => ({ ...prev, childHeight: height }));
   };
 
@@ -148,6 +149,7 @@ const MenuView = ({ children, actions, ...props }) => {
                   ...prev,
                   isMenuOpen: false,
                   subMenu: null,
+                  isFirstTime: true,
                   menuData: [],
                 }));
               }

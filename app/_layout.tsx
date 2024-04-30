@@ -8,6 +8,22 @@ import { useColorScheme } from "react-native";
 import { EventProvider } from "react-native-outside-press";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+declare module "@react-navigation/native" {
+  export type ExtendedTheme = {
+    dark: boolean;
+    colors: {
+      primary: string;
+      background: string;
+      card: string;
+      text: string;
+      border: string;
+      notification: string;
+      menuBg: string;
+    };
+  };
+  export function useTheme(): ExtendedTheme;
+}
+
 export default function AppLayout() {
   const colorScheme = useColorScheme();
   let dark = {
@@ -18,7 +34,6 @@ export default function AppLayout() {
       card: "#1e1e1e",
       menuBg: "#2d2d2d",
       text: "#e6e6e6",
-      // border: "rgba(100, 100, 100 , 0.1)",
     },
   };
   let light = {
