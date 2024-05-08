@@ -1,8 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, ToastAndroid, View } from "react-native";
+import {
+  ImageBackground,
+  Platform,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+  useColorScheme,
+} from "react-native";
 import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuView from "../components/menuView";
 import { useTheme } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 
 const actions = [
   {
@@ -64,22 +73,41 @@ const actions = [
 ];
 
 const App = () => {
+  const tint = useColorScheme();
   const theme = useTheme();
 
   const onPressAction = (item) => {
-    ToastAndroid.show(item.title, ToastAndroid.BOTTOM);
+    if (Platform.OS === "android") {
+      ToastAndroid.show(item.title, ToastAndroid.BOTTOM);
+    } else {
+      alert(item.title);
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      imageStyle={{
+        resizeMode: "cover",
+      }}
+      source={{
+        uri: "https://images.unsplash.com/photo-1577398628395-4ebd1f36731b?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      }}
+    >
       <MenuView actions={actions} onPressAction={onPressAction}>
-        <Entypo
-          name="dots-three-horizontal"
-          size={24}
-          color={theme.colors.text}
-        />
+        <BlurView
+          tint={tint === "light" ? "systemMaterialLight" : "systemMaterialDark"}
+          intensity={100}
+          style={styles.blurView}
+        >
+          <Entypo
+            name="dots-three-horizontal"
+            size={24}
+            color={theme.colors.text}
+          />
+        </BlurView>
       </MenuView>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -90,5 +118,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  blurView: {
+    width: 50,
+    aspectRatio: 1,
+    borderRadius: 25,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

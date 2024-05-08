@@ -4,7 +4,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { Stack } from "expo-router/stack";
-import { useColorScheme } from "react-native";
+import { Platform, useColorScheme } from "react-native";
 import { EventProvider } from "react-native-outside-press";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -53,6 +53,11 @@ export default function AppLayout() {
           <Stack
             screenOptions={{
               title: "Menu",
+              headerTransparent: Platform.select({ android: false, ios: true }),
+              headerBlurEffect:
+                colorScheme === "light"
+                  ? "systemMaterialLight"
+                  : "systemMaterialDark",
               navigationBarColor: theme.colors.card,
             }}
           />
