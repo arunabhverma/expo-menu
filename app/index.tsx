@@ -12,6 +12,7 @@ import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuView from "../components/menuView";
 import { useTheme } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
+import { Image } from "expo-image";
 
 const actions = [
   {
@@ -85,15 +86,16 @@ const App = () => {
   };
 
   return (
-    <ImageBackground
-      style={styles.container}
-      imageStyle={{
-        resizeMode: "cover",
-      }}
-      source={{
-        uri: "https://images.unsplash.com/photo-1577398628395-4ebd1f36731b?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      }}
-    >
+    <View style={styles.container}>
+      <Image
+        source={{
+          uri: "https://images.unsplash.com/photo-1577398628395-4ebd1f36731b?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        }}
+        placeholder={"eVRU$[XnXTn%ae?^n4i^jsbH9te.jZbbf6;1b^bvjFjZGHiwi_f5bI"}
+        style={StyleSheet.absoluteFill}
+        transition={300}
+        contentFit="cover"
+      />
       <MenuView actions={actions} onPressAction={onPressAction}>
         <BlurView
           tint={tint === "light" ? "systemMaterialLight" : "systemMaterialDark"}
@@ -107,7 +109,7 @@ const App = () => {
           />
         </BlurView>
       </MenuView>
-    </ImageBackground>
+    </View>
   );
 };
 

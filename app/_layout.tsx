@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/native";
 import { Stack } from "expo-router/stack";
 import { Platform, useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { EventProvider } from "react-native-outside-press";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -47,22 +48,27 @@ export default function AppLayout() {
   };
   const theme = colorScheme === "dark" ? dark : light;
   return (
-    <EventProvider>
-      <SafeAreaProvider>
-        <ThemeProvider value={theme}>
-          <Stack
-            screenOptions={{
-              title: "Menu",
-              headerTransparent: Platform.select({ android: false, ios: true }),
-              headerBlurEffect:
-                colorScheme === "light"
-                  ? "systemMaterialLight"
-                  : "systemMaterialDark",
-              navigationBarColor: theme.colors.card,
-            }}
-          />
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </EventProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <EventProvider>
+        <SafeAreaProvider>
+          <ThemeProvider value={theme}>
+            <Stack
+              screenOptions={{
+                title: "Menu",
+                headerTransparent: Platform.select({
+                  android: false,
+                  ios: true,
+                }),
+                headerBlurEffect:
+                  colorScheme === "light"
+                    ? "systemMaterialLight"
+                    : "systemMaterialDark",
+                navigationBarColor: theme.colors.card,
+              }}
+            />
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </EventProvider>
+    </GestureHandlerRootView>
   );
 }
