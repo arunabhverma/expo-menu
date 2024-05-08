@@ -12,6 +12,7 @@
     "@react-navigation/native": "^6.1.17",
     "@types/react": "~18.2.45",
     "expo": "~50.0.14",
+    "expo-blur": "~12.9.2",
     "expo-constants": "~15.4.6",
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.9",
